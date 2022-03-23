@@ -10,7 +10,7 @@ public class GameController : MonoBehaviour
     [SerializeField] private Image backgroundShader;
     [SerializeField] private TMP_Text TurnText;
     [SerializeField] private GameObject dice, player1, player2, canvasRotator;
-    [SerializeField] private Camera camera;
+    [SerializeField] private Camera cameraMain;
     [SerializeField] private Color movementColor = new Color(0f, 0f, 1f, 0.25f);
 
     public List<GameObject> rangeHexes = new List<GameObject>();
@@ -29,7 +29,7 @@ public class GameController : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            Ray ray = camera.ScreenPointToRay(Input.mousePosition);
+            Ray ray = cameraMain.ScreenPointToRay(Input.mousePosition);
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray);
             if (hit.collider != null && hit.collider.gameObject.GetComponent<SpriteRenderer>().color == movementColor)
             {
@@ -45,7 +45,7 @@ public class GameController : MonoBehaviour
         }
     }
 
-    //This is where cal;ing the DiceRoll function returns. Currently it only has functionality for moving
+    //This is where caling the DiceRoll function returns. Currently it only has functionality for moving
     public void RollResult(int result, string type)
     {
         switch (type)
