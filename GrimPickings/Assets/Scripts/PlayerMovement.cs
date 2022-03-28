@@ -29,6 +29,10 @@ public class PlayerMovement : MonoBehaviour
             if (gridHolder.transform.GetChild(i).transform.position == this.transform.position)
             {
                 currentTile = gridHolder.transform.GetChild(i).gameObject;
+                if(gridHolder.transform.GetChild(i).GetComponent<HexScript>().type != "" && gridHolder.transform.GetChild(i).GetComponent<HexScript>().type != "Center")
+                {
+                    gridHolder.transform.GetChild(i).GetComponent<HexScript>().dugUp();
+                }
             }
         }
     }

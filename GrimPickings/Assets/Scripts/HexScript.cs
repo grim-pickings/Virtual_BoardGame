@@ -9,12 +9,14 @@ public class HexScript : MonoBehaviour
     public string type;
     public bool flash;
     public float alpha;
-    public Color movementColor = new Color(0f, 0f, 1f, 0.25f);
+    public Color movementColor;
     public List<ArrayList> nearHexes = new List<ArrayList>();
+    public List<GameObject> digGroup = new List<GameObject>();
 
     //This script starts by findign all the hexes near it to make an array of 6 or less hexes (depending on where it is positioned)
     void Awake()
     {
+        movementColor = controller.GetComponent<GameController>().movementColor;
         nearHexes = new List<ArrayList>();
         for (int i = 0; i < gridHolder.transform.childCount; i++)
         {
@@ -47,22 +49,7 @@ public class HexScript : MonoBehaviour
 
         if (this.transform.name == "Hex (" + (gridHolder.transform.childCount / 2) + ")")
         {
-            type = "Center";
-            for (int i = 0; i < nearHexes.Count; i++)
-            {
-                ((GameObject)nearHexes[i][0]).GetComponent<HexScript>().type = "Center";
-            }
-        }
-    }
-
-    //Right now this only assigns a center position based on the center of the grid
-    void Start()
-    {
-        if(type == "Center")
-        {
-            this.transform.GetChild(1).GetComponent<SpriteRenderer>().color = new Color(0f, 1f, 0.5f, 1f);
-            this.transform.GetChild(1).GetComponent<SpriteRenderer>().sortingOrder = -1;
-            Instantiate(hex, this.transform.position, Quaternion.identity, this.transform);
+            CenterHex();
         }
     }
 
@@ -105,8 +92,111 @@ public class HexScript : MonoBehaviour
     }
 
     //Function for reverting tiles to be transparent
-    public void Revert()
+    public void Revert(int childCount)
     {
-        this.transform.GetChild(this.transform.childCount - 1).GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0f);
+        this.transform.GetChild(this.transform.childCount - childCount).GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, 0f);
+    }
+
+    public void CenterHex()
+    {
+        type = "Center";
+        this.transform.GetChild(1).GetComponent<SpriteRenderer>().color = new Color(0f, 1f, 0.5f, 1f);
+        this.transform.GetChild(1).GetComponent<SpriteRenderer>().sortingOrder = -1;
+        Instantiate(hex, this.transform.position, Quaternion.identity, this.transform);
+        for (int i = 0; i < nearHexes.Count; i++)
+        {
+            ((GameObject)nearHexes[i][0]).GetComponent<HexScript>().type = "Center";
+            ((GameObject)nearHexes[i][0]).transform.GetChild(1).GetComponent<SpriteRenderer>().color = new Color(0f, 1f, 0.5f, 1f);
+            ((GameObject)nearHexes[i][0]).transform.GetChild(1).GetComponent<SpriteRenderer>().sortingOrder = -1;
+            Instantiate(hex, ((GameObject)nearHexes[i][0]).transform.position, Quaternion.identity, ((GameObject)nearHexes[i][0]).transform);
+        }
+    }
+
+    public void MoundHex()
+    {
+        type = "Mound";
+        this.transform.GetChild(1).GetComponent<SpriteRenderer>().color = new Color(0.42f, 0.33f, 0.35f, 1f);
+        this.transform.GetChild(1).GetComponent<SpriteRenderer>().sortingOrder = -1;
+        Instantiate(hex, this.transform.position, Quaternion.identity, this.transform);
+        digGroup.Add(this.gameObject);
+        float chanceNum = Random.Range(0f, 1.0f);
+        if (chanceNum <= .5f)
+        {
+            for (int i = 0; i < 2; i++)
+            {
+                ((GameObject)nearHexes[i][0]).GetComponent<HexScript>().type = "Mound";
+                ((GameObject)nearHexes[i][0]).transform.GetChild(1).GetComponent<SpriteRenderer>().color = new Color(0.42f, 0.33f, 0.35f, 1f);
+                ((GameObject)nearHexes[i][0]).transform.GetChild(1).GetComponent<SpriteRenderer>().sortingOrder = -1;
+                Instantiate(hex, ((GameObject)nearHexes[i][0]).transform.position, Quaternion.identity, ((GameObject)nearHexes[i][0]).transform);
+                digGroup.Add(((GameObject)nearHexes[i][0]));
+            }
+        }
+        else
+        {
+            for (int i = nearHexes.Count - 1; i > nearHexes.Count - 3; i--)
+            {
+                ((GameObject)nearHexes[i][0]).GetComponent<HexScript>().type = "Mound";
+                ((GameObject)nearHexes[i][0]).transform.GetChild(1).GetComponent<SpriteRenderer>().color = new Color(0.42f, 0.33f, 0.35f, 1f);
+                ((GameObject)nearHexes[i][0]).transform.GetChild(1).GetComponent<SpriteRenderer>().sortingOrder = -1;
+                Instantiate(hex, ((GameObject)nearHexes[i][0]).transform.position, Quaternion.identity, ((GameObject)nearHexes[i][0]).transform);
+                digGroup.Add(((GameObject)nearHexes[i][0]));
+            }
+        }
+        for (int i = 0; i < digGroup.Count; i++)
+        {
+            digGroup[i].GetComponent<HexScript>().digGroup = digGroup;
+        }
+    }
+
+    public void GraveHex()
+    {
+        type = "Grave";
+        this.transform.GetChild(1).GetComponent<SpriteRenderer>().color = new Color(0.28f, 0.33f, 0.46f, 1f);
+        this.transform.GetChild(1).GetComponent<SpriteRenderer>().sortingOrder = -1;
+        Instantiate(hex, this.transform.position, Quaternion.identity, this.transform);
+        digGroup.Add(this.gameObject);
+        for (int i = 0; i < 3; i++)
+        {
+            ((GameObject)nearHexes[i][0]).GetComponent<HexScript>().type = "Grave";
+            ((GameObject)nearHexes[i][0]).transform.GetChild(1).GetComponent<SpriteRenderer>().color = new Color(0.28f, 0.33f, 0.46f, 1f);
+            ((GameObject)nearHexes[i][0]).transform.GetChild(1).GetComponent<SpriteRenderer>().sortingOrder = -1;
+            Instantiate(hex, ((GameObject)nearHexes[i][0]).transform.position, Quaternion.identity, ((GameObject)nearHexes[i][0]).transform);
+            digGroup.Add(((GameObject)nearHexes[i][0]));
+        }
+        for(int i = 0; i < digGroup.Count; i++)
+        {
+            digGroup[i].GetComponent<HexScript>().digGroup = digGroup;
+        }
+    }
+
+    public void MausoleumHex()
+    {
+        type = "Mausoleum";
+        this.transform.GetChild(1).GetComponent<SpriteRenderer>().color = new Color(0.52f, 0.52f, 0.36f, 1f);
+        this.transform.GetChild(1).GetComponent<SpriteRenderer>().sortingOrder = -1;
+        Instantiate(hex, this.transform.position, Quaternion.identity, this.transform);
+        digGroup.Add(this.gameObject);
+        for (int i = 0; i < nearHexes.Count; i++)
+        {
+            ((GameObject)nearHexes[i][0]).GetComponent<HexScript>().type = "Mausoleum";
+            ((GameObject)nearHexes[i][0]).transform.GetChild(1).GetComponent<SpriteRenderer>().color = new Color(0.52f, 0.52f, 0.36f, 1f);
+            ((GameObject)nearHexes[i][0]).transform.GetChild(1).GetComponent<SpriteRenderer>().sortingOrder = -1;
+            Instantiate(hex, ((GameObject)nearHexes[i][0]).transform.position, Quaternion.identity, ((GameObject)nearHexes[i][0]).transform);
+            digGroup.Add(((GameObject)nearHexes[i][0]));
+        }
+        for (int i = 0; i < digGroup.Count; i++)
+        {
+            digGroup[i].GetComponent<HexScript>().digGroup = digGroup;
+        }
+    }
+
+    public void dugUp()
+    {
+        for(int i = 0; i < digGroup.Count; i++)
+        {
+            digGroup[i].GetComponent<HexScript>().type = "";
+            //Revert(2) will revert the second to last child which is made when the game starts to light up the hexes to signify a site
+            digGroup[i].GetComponent<HexScript>().Revert(2);
+        }
     }
 }
