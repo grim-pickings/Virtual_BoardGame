@@ -112,6 +112,8 @@ public class HexScript : MonoBehaviour
         }
     }
 
+    ////////////////////////////////////////These all make the graves look correct when they are assigned//////////////////////////////////////////////////////
+
     public void MoundHex()
     {
         type = "Mound";
@@ -189,6 +191,8 @@ public class HexScript : MonoBehaviour
             digGroup[i].GetComponent<HexScript>().digGroup = digGroup;
         }
     }
+
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
     public void dugUp()
     {

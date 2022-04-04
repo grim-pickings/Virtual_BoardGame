@@ -112,6 +112,7 @@ public class GameController : MonoBehaviour
     {
         int i = 0;
         float interval = 0.05f;
+        //Number of mounds
         while(i <= 16)
         {
             int site = Random.Range(0, gridHolder.transform.childCount);
@@ -138,6 +139,7 @@ public class GameController : MonoBehaviour
             yield return new WaitForSeconds(interval);
         }
         i = 0;
+        //number of graves
         while (i <= 12)
         {
             int site = Random.Range(0, gridHolder.transform.childCount);
@@ -164,6 +166,7 @@ public class GameController : MonoBehaviour
             yield return new WaitForSeconds(interval);
         }
         i = 0;
+        //number of mausoleums
         while (i <= 8)
         {
             int site = Random.Range(0, gridHolder.transform.childCount);
@@ -217,13 +220,17 @@ public class GameController : MonoBehaviour
         cameraMain.transform.position = new Vector3(camPosMain[0], camPosMain[1], camPosMain[2]);
     }
 
+    //Coroutine that takes care of the smooth movement as well as checks if they move to a gravesite
     IEnumerator movement(GameObject destination)
     {
+        //revert the movement tiles
         for (int i = 0; i < rangeHexes.Count; i++)
         {
             //Revert(1) will revert the last child which is reserved for the movement and are lighting up
             rangeHexes[i].GetComponent<HexScript>().Revert(1);
         }
+
+        //Checks to see if the player is at their destination or not
         while (currentPlayer.transform.position.x >= destination.transform.position.x + 0.01f || currentPlayer.transform.position.x <= destination.transform.position.x - 0.01f ||
             currentPlayer.transform.position.y >= destination.transform.position.y + 0.01f || currentPlayer.transform.position.y <= destination.transform.position.y - 0.01f)
         {
@@ -234,6 +241,7 @@ public class GameController : MonoBehaviour
 
         string tileType = destination.transform.parent.GetComponent<HexScript>().type;
 
+        //Breaks coroutine if they land on a gravesite
         if(tileType == "Mound" || tileType == "Grave" || tileType == "Mausoleum")
         {
             StartCoroutine(cardController.GetComponent<CardController>().digging(tileType));

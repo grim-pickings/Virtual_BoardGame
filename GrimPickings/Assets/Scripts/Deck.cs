@@ -37,6 +37,7 @@ public class Deck : MonoBehaviour
     }
 
     public List<Card> partsCardDeck = new List<Card>();
+    //Image Sprites for each card
     [SerializeField] private Sprite DragonHead, Tentacle, GorgonHead, HorseLeg, WolfClaws, Wings, GiantEye, CrabClaw, VampireHead, WerewolfHead, MinotaurHead, JackalopeHead, DeathsHood, PorcelainArm, PorcelainLeg, PorcelainTorso, KnightsGreaves, KnightsGauntlets, 
         KnightsChestPlate, LichsArm, BearClaws, MidasHand, VenusFlyTrap, JiangshiLeg, RabbitsFoot, SandyLeg, SpiderLegs, ImpishLeg, SlimyCenter, Egg, ShadowyCenter, KappaShell, StoneyChest, AngelsHead, StrawHead, StrawBody, StrawArm, StickLeg, MushroomCap, IcyLeg, 
         FireArm, WindyLeg, HedgehogQuills, CrystallineTorso, MirrorHead, ExsArm, FeatherBody, FeatherLeg, MetalArm, MetalBody, BrainInAJar, Globe, CentipedeLegs, CentipedeBody, LionArm, CatHead, CatLegs, LizardHead, LizardBody, LizardArm, BoarsHead, LampreyArm, 
@@ -47,6 +48,7 @@ public class Deck : MonoBehaviour
         createDeck();
     }
 
+    //this runs on awake becuase it uses image references and can't be initalized before the game is started
     void createDeck()
     {
         partsCardDeck = new List<Card>() {
