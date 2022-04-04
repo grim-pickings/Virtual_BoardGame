@@ -9,13 +9,13 @@ public class GameController : MonoBehaviour
 {
     [SerializeField] private Image backgroundShader;
     [SerializeField] private TMP_Text TurnText;
-    [SerializeField] private GameObject gridHolder, dice, player1, player2, canvasRotator;
+    [SerializeField] private GameObject gridHolder, dice, canvasRotator, cardController;
     [SerializeField] private Camera cameraMain;
     [HideInInspector] public Vector3 camPosMain;
     [HideInInspector] public Color movementColor = new Color(1f, 1f, 1f, 0.5f);
 
     public List<GameObject> rangeHexes = new List<GameObject>();
-    public GameObject currentPlayer;
+    public GameObject currentPlayer, player1, player2;
 
     //Start the game with player 1 rolling to move
     void Start()
@@ -35,15 +35,7 @@ public class GameController : MonoBehaviour
             RaycastHit2D hit = Physics2D.GetRayIntersection(ray);
             if (hit.collider != null && hit.collider.gameObject.GetComponent<SpriteRenderer>().color == movementColor)
             {
-                currentPlayer.transform.position = hit.collider.transform.position;
-                currentPlayer.GetComponent<PlayerMovement>().FindTile();
-                for(int i = 0; i < rangeHexes.Count; i++)
-                {
-                    //Revert(1) will revert the last child which is reserved for the movement and are lighting up
-                    rangeHexes[i].GetComponent<HexScript>().Revert(1);
-                }
-                if(currentPlayer == player1) { currentPlayer = player2; StartCoroutine(TurnStart(2)); }
-                else { currentPlayer = player1; StartCoroutine(TurnStart(1)); }
+                StartCoroutine(movement(hit.collider.gameObject));
             }
         }
     }
@@ -63,7 +55,7 @@ public class GameController : MonoBehaviour
     }
 
     //Coroutine that controls everything that happnes at the begining of the turn with rolling for movement and displaying whose turn it is
-    IEnumerator TurnStart(int playerNum)
+    public IEnumerator TurnStart(int playerNum)
     {
         float t = 0f;
         while (t < 1)
@@ -223,5 +215,33 @@ public class GameController : MonoBehaviour
         }
 
         cameraMain.transform.position = new Vector3(camPosMain[0], camPosMain[1], camPosMain[2]);
+    }
+
+    IEnumerator movement(GameObject destination)
+    {
+        for (int i = 0; i < rangeHexes.Count; i++)
+        {
+            //Revert(1) will revert the last child which is reserved for the movement and are lighting up
+            rangeHexes[i].GetComponent<HexScript>().Revert(1);
+        }
+        while (currentPlayer.transform.position.x >= destination.transform.position.x + 0.01f || currentPlayer.transform.position.x <= destination.transform.position.x - 0.01f ||
+            currentPlayer.transform.position.y >= destination.transform.position.y + 0.01f || currentPlayer.transform.position.y <= destination.transform.position.y - 0.01f)
+        {
+            currentPlayer.transform.position = Vector3.Lerp(currentPlayer.transform.position, destination.transform.position, Time.deltaTime * 8f);
+            yield return null;
+        }
+        currentPlayer.transform.position = destination.transform.position;
+
+        string tileType = destination.transform.parent.GetComponent<HexScript>().type;
+
+        if(tileType == "Mound" || tileType == "Grave" || tileType == "Mausoleum")
+        {
+            StartCoroutine(cardController.GetComponent<CardController>().digging(tileType));
+            yield break;
+        }
+
+        currentPlayer.GetComponent<PlayerMovement>().FindTile();
+        if (currentPlayer == player1) { currentPlayer = player2; StartCoroutine(TurnStart(2)); }
+        else { currentPlayer = player1; StartCoroutine(TurnStart(1)); }
     }
 }
