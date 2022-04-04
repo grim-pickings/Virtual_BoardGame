@@ -1,5 +1,5 @@
 sceneSetups:
-- path: Assets/Scenes/ExploreBoard.unity
+- path: Assets/Scenes/RPS-Ty.unity
   isLoaded: 1
   isActive: 1
   isSubScene: 0
