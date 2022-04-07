@@ -5,16 +5,16 @@ m_ProjectFiles:
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637847023884126510
-    m_Hash: 1582723852
+      ticks: 637847825594555201
+    m_Hash: 73725181
   m_LockFileStatus:
     m_FilePath: C:/Users/conno/GrimPickings_2020.3.20f1/Virtual_BoardGame/GrimPickings/Packages/packages-lock.json
     m_PathExists: 1
     m_ContentTrackingEnabled: 1
     m_ModificationDate:
       serializedVersion: 2
-      ticks: 637847023884196462
-    m_Hash: 672991101
+      ticks: 637847825594595552
+    m_Hash: 4279290805
 m_EmbeddedPackageManifests:
   m_ManifestsStatus: {}
 m_PackageAssets:
