@@ -17,6 +17,7 @@ public class RandomPull : MonoBehaviour
         List<Deck.Card> cardDeck = cardDeckRef.partsCardDeck;
 
         // pull random card from list.
+        // you can have negative HP?? need to mention that.
         int i = Random.Range(0, cardDeck.Count);
         cardName = cardDeck[i].name;
         cardPart = cardDeck[i].bodyPart;
