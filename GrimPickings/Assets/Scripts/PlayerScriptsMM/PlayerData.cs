@@ -70,22 +70,22 @@ public class PlayerData : MonoBehaviour
         switch (bodyPart)
         {
             case "Left Leg":
-                LeftLeg.GetComponent<Image>().sprite = partImage;
+                LeftLeg.GetComponent<Image>().sprite = imagePart;
                 break;
             case "Right Leg":
-                RightLeg.GetComponent<Image>().sprite = partImage;
+                RightLeg.GetComponent<Image>().sprite = imagePart;
                 break;
             case "Left Arm":
-                LeftArm.GetComponent<Image>().sprite = partImage;
+                LeftArm.GetComponent<Image>().sprite = imagePart;
                 break;
             case "Right Arm":
-                RightArm.GetComponent<Image>().sprite = partImage;
+                RightArm.GetComponent<Image>().sprite = imagePart;
                 break;
             case "Torso":
-                Body.GetComponent<Image>().sprite = partImage;
+                Body.GetComponent<Image>().sprite = imagePart;
                 break;
             case "Head":
-                Head.GetComponent<Image>().sprite = partImage;
+                Head.GetComponent<Image>().sprite = imagePart;
                 break;
             case "empty":
                 // do nothing.
