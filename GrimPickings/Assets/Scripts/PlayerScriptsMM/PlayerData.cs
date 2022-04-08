@@ -49,28 +49,43 @@ public class PlayerData : MonoBehaviour
         //partImage = dugItem.GetComponent<ItemData>().image;
 
         statText.text = "Health: " + health + "\nAttack: " + attack + "\nSpeed : " + speed;
+        Debug.Log(bodyPart);
+
+        // for now make it a random choice to apply to left or right side. change it later so the player selects a button to set the side.
+        if(bodyPart == "Leg" || bodyPart == "Arm")
+        {
+            // pick a random number, if 1 Left, if 2 Right.
+            int i = Random.Range(1, 3);
+            Debug.Log(i);
+            if (i == 1)
+            {
+                bodyPart = bodyPart.Insert(0, "Left ");
+            } else
+            {
+                bodyPart = bodyPart.Insert(0, "Right ");
+            }
+        }
 
         // switch statement dependent on body part type. 
-        //dugItem.GetComponent<ItemData>().bodyPart
-        switch ("Left Leg")
+        switch (bodyPart)
         {
             case "Left Leg":
-                //LeftLeg.GetComponent<Image>().sprite = partImage;
+                LeftLeg.GetComponent<Image>().sprite = partImage;
                 break;
             case "Right Leg":
-                //RightLeg.GetComponent<Image>().sprite = partImage;
+                RightLeg.GetComponent<Image>().sprite = partImage;
                 break;
             case "Left Arm":
-                //LeftArm.GetComponent<Image>().sprite = partImage;
+                LeftArm.GetComponent<Image>().sprite = partImage;
                 break;
             case "Right Arm":
-                //RightArm.GetComponent<Image>().sprite = partImage;
+                RightArm.GetComponent<Image>().sprite = partImage;
                 break;
-            case "Body":
-                //Body.GetComponent<Image>().sprite = partImage;
+            case "Torso":
+                Body.GetComponent<Image>().sprite = partImage;
                 break;
             case "Head":
-                //Head.GetComponent<Image>().sprite = partImage;
+                Head.GetComponent<Image>().sprite = partImage;
                 break;
             case "empty":
                 // do nothing.
