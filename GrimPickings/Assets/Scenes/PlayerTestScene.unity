@@ -123,11 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &197202052 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4226902887152601862, guid: 09a1402c52c97cf418a38c83e52d86c7, type: 3}
-  m_PrefabInstance: {fileID: 974940787}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &263557540
 GameObject:
   m_ObjectHideFlags: 0
@@ -579,11 +574,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 09a1402c52c97cf418a38c83e52d86c7, type: 3}
---- !u!1 &996179248 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4226902886808354944, guid: 09a1402c52c97cf418a38c83e52d86c7, type: 3}
-  m_PrefabInstance: {fileID: 974940787}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1150343131
 GameObject:
   m_ObjectHideFlags: 0
@@ -718,54 +708,22 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1150343131}
   m_CullTransparentMesh: 1
---- !u!1 &1448704411 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4226902887145239111, guid: 09a1402c52c97cf418a38c83e52d86c7, type: 3}
-  m_PrefabInstance: {fileID: 974940787}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1473993591 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4226902886441670261, guid: 09a1402c52c97cf418a38c83e52d86c7, type: 3}
-  m_PrefabInstance: {fileID: 974940787}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1556455596 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4226902887361522507, guid: 09a1402c52c97cf418a38c83e52d86c7, type: 3}
-  m_PrefabInstance: {fileID: 974940787}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &1564279466 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4226902885560383710, guid: 09a1402c52c97cf418a38c83e52d86c7, type: 3}
-  m_PrefabInstance: {fileID: 974940787}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1564279467 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 4226902885560383697, guid: 09a1402c52c97cf418a38c83e52d86c7, type: 3}
   m_PrefabInstance: {fileID: 974940787}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1564279468
+--- !u!114 &1564279469 stripped
 MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 6011930660736053634, guid: 09a1402c52c97cf418a38c83e52d86c7, type: 3}
+  m_PrefabInstance: {fileID: 974940787}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1564279466}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b50e298bac5bd86429795c73fb401c22, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Head: {fileID: 996179248}
-  Body: {fileID: 1742682587}
-  LeftArm: {fileID: 1473993591}
-  RightArm: {fileID: 1556455596}
-  LeftLeg: {fileID: 1448704411}
-  RightLeg: {fileID: 197202052}
---- !u!1 &1742682587 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4226902887128614836, guid: 09a1402c52c97cf418a38c83e52d86c7, type: 3}
-  m_PrefabInstance: {fileID: 974940787}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1939815958
 GameObject:
   m_ObjectHideFlags: 0
@@ -1005,4 +963,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardDeckRef: {fileID: 1939815963}
-  playerData: {fileID: 1564279468}
+  playerData: {fileID: 1564279469}

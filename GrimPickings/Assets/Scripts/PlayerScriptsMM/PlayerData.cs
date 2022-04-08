@@ -68,7 +68,6 @@ public class PlayerData : MonoBehaviour
         {
             // pick a random number, if 1 Left, if 2 Right.
             int i = Random.Range(1, 3);
-            Debug.Log(i);
             if (i == 1)
             {
                 bodyPart = bodyPart.Insert(0, "Left ");
