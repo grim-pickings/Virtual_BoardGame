@@ -10,8 +10,7 @@ public class PlayerData : MonoBehaviour
     private float attack = 0;
     private float speed = 0;
 
-    private GameObject statTextObject;
-    private TextMeshProUGUI statText;
+    public TextMeshProUGUI statText;
 
     // get reference to creature image parts.
     public GameObject Head;
@@ -46,19 +45,7 @@ public class PlayerData : MonoBehaviour
     private int oldRightLegAttack = 0;
     private int oldRightLegSpeed = 0;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        // change this to public and remove object reference.
-        statTextObject = this.transform.Find("StatsLabel").gameObject;
-        statText = statTextObject.GetComponent<TextMeshProUGUI>();
-
-    }
-
-    // function to update stat label information with passed in data. 
-    // logic is not complete, getting a new part will directly add to stats.
-    // needs to remove values from the removed part first. 
-    // then add new parts.
+    // update player data and stat label with passed in data. 
     public void StatUpdate(string bodyPart, int healthPart, int attackPart, int speedPart, Sprite imagePart, string bodyPartSide = "")
     {
 
@@ -81,7 +68,7 @@ public class PlayerData : MonoBehaviour
         switch (bodyPart)
         {
             case "Left Leg":
-                LeftLeg.GetComponent<Image>().sprite = imagePart;
+                LeftLeg.GetComponent<SpriteRenderer>().sprite = imagePart;
                 
                 // remove stats from previously equipped part.
                 RemovePart(oldLeftLegHP, oldLeftLegAttack, oldLeftLegSpeed);
@@ -93,7 +80,7 @@ public class PlayerData : MonoBehaviour
 
                 break;
             case "Right Leg":
-                RightLeg.GetComponent<Image>().sprite = imagePart;
+                RightLeg.GetComponent<SpriteRenderer>().sprite = imagePart;
 
                 // remove stats from old part.
                 RemovePart(oldRightLegHP, oldRightLegAttack, oldRightLegSpeed);
@@ -105,7 +92,7 @@ public class PlayerData : MonoBehaviour
 
                 break;
             case "Left Arm":
-                LeftArm.GetComponent<Image>().sprite = imagePart;
+                LeftArm.GetComponent<SpriteRenderer>().sprite = imagePart;
 
                 // remove stats from old part.
                 RemovePart(oldLeftArmHP, oldLeftArmAttack, oldLeftArmSpeed);
@@ -117,7 +104,7 @@ public class PlayerData : MonoBehaviour
 
                 break;
             case "Right Arm":
-                RightArm.GetComponent<Image>().sprite = imagePart;
+                RightArm.GetComponent<SpriteRenderer>().sprite = imagePart;
 
                 // remove stats from old part.
                 RemovePart(oldRightArmHP, oldRightArmAttack, oldRightArmSpeed);
@@ -129,7 +116,7 @@ public class PlayerData : MonoBehaviour
 
                 break;
             case "Torso":
-                Body.GetComponent<Image>().sprite = imagePart;
+                Body.GetComponent<SpriteRenderer>().sprite = imagePart;
 
                 // remove stats from old part.
                 RemovePart(oldBodyHP, oldBodyAttack, oldBodySpeed);
@@ -141,7 +128,7 @@ public class PlayerData : MonoBehaviour
 
                 break;
             case "Head":
-                Head.GetComponent<Image>().sprite = imagePart;
+                Head.GetComponent<SpriteRenderer>().sprite = imagePart;
 
                 // remove stats from old part.
                 RemovePart(oldHeadHP, oldHeadAttack, oldHeadSpeed);
