@@ -41,7 +41,7 @@ AnimatorStateMachine:
     m_Position: {x: 370, y: 110, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 9022912072140063513}
-    m_Position: {x: 560, y: 210, z: 0}
+    m_Position: {x: 570, y: 210, z: 0}
   - serializedVersion: 1
     m_State: {fileID: -3041115737502016095}
     m_Position: {x: 380, y: 330, z: 0}
@@ -241,7 +241,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: ComingOnScreen
+  m_Name: ComingOnScreenBodyPart
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:

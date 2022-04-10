@@ -6,9 +6,7 @@ using TMPro;
 
 public class CardController : MonoBehaviour
 {
-    [SerializeField] private GameObject GameController, cardUI, heldInventory, storedInventory, equipbutton;
-    public TMP_Text cardName, cardPart, cardRarity, cardTagLine, cardHealth, cardAttack, cardSpeed, cardAbilityG, cardAbilityC, cardCurse;
-    public Image cardImage;
+    [SerializeField] private GameObject GameController, cardUI, cardUINoCurse, heldInventory, storedInventory, equipbutton;
     private bool equip = false;
     public bool collect = false;
     private int currentPart = 0;
@@ -18,7 +16,7 @@ public class CardController : MonoBehaviour
     {
         //Starts card off screen, this can be changed to a deck off to the side if we want to visualize it as such
         cardUI.transform.localPosition = new Vector3(-800, 0, 0);
-        Animator anim = cardUI.GetComponent<Animator>();
+        Animator anim;
 
         //List of cards from the card deck in the Deck script
         List<Deck.Card> cardDeck = GameController.GetComponent<Deck>().partsCardDeck;
@@ -44,22 +42,44 @@ public class CardController : MonoBehaviour
             //this simply adjusts the card info and runs the card drawing until it meets the loop amount
             cardUI.transform.localPosition = new Vector3(-800, 0, 0);
             collect = false;
-            anim.SetBool("drawing", true);
             int i = Random.Range(0, cardDeck.Count);
-            cardName.text = cardDeck[i].name;
-            cardPart.text = "Part: " + cardDeck[i].bodyPart;
-            cardRarity.text = cardDeck[i].rarity;
-            cardTagLine.text = "<i>\"" + cardDeck[i].tagLine + "\"</i>";
-            if(cardDeck[i].health > 0) { cardHealth.text = "+" + cardDeck[i].health.ToString(); }
-            else { cardHealth.text = cardDeck[i].health.ToString(); }
-            if (cardDeck[i].attack > 0) { cardAttack.text = "+" + cardDeck[i].attack.ToString(); }
-            else { cardAttack.text = cardDeck[i].attack.ToString(); }
-            if(cardDeck[i].speed > 0) { cardSpeed.text = "+" + cardDeck[i].speed.ToString(); }
-            else { cardSpeed.text = cardDeck[i].speed.ToString(); }
-            cardAbilityG.text = cardDeck[i].gatherAbility;
-            cardAbilityC.text = cardDeck[i].attackAbility;
-            cardCurse.text = cardDeck[i].curse;
-            cardImage.sprite = cardDeck[i].img;
+            if (cardDeck[i].curse != "None") {
+                anim = cardUI.GetComponent<Animator>();
+                GameObject cardFront = cardUI.transform.GetChild(0).gameObject;
+                cardFront.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = cardDeck[i].name;
+                cardFront.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = cardDeck[i].rarity;
+                cardFront.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "Part: " + cardDeck[i].bodyPart;
+                cardFront.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "<i>\"" + cardDeck[i].tagLine + "\"</i>";
+                if (cardDeck[i].health > 0) { cardFront.transform.GetChild(5).transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "+" + cardDeck[i].health.ToString(); }
+                else { cardFront.transform.GetChild(5).transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = cardDeck[i].health.ToString(); }
+                if (cardDeck[i].attack > 0) { cardFront.transform.GetChild(5).transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "+" + cardDeck[i].attack.ToString(); }
+                else { cardFront.transform.GetChild(5).transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = cardDeck[i].attack.ToString(); }
+                if (cardDeck[i].speed > 0) { cardFront.transform.GetChild(5).transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = "+" + cardDeck[i].speed.ToString(); }
+                else { cardFront.transform.GetChild(5).transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = cardDeck[i].speed.ToString(); }
+                cardFront.transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = cardDeck[i].gatherAbility;
+                cardFront.transform.GetChild(7).GetComponent<TextMeshProUGUI>().text = cardDeck[i].attackAbility;
+                cardFront.transform.GetChild(8).GetComponent<TextMeshProUGUI>().text = cardDeck[i].curse;
+                cardFront.transform.GetChild(9).GetComponent<Image>().sprite = cardDeck[i].img;
+            }
+            else {
+                anim = cardUINoCurse.GetComponent<Animator>();
+                GameObject cardFront = cardUINoCurse.transform.GetChild(0).gameObject;
+                cardFront.transform.GetChild(1).GetComponent<TextMeshProUGUI>().text = cardDeck[i].name;
+                cardFront.transform.GetChild(2).GetComponent<TextMeshProUGUI>().text = cardDeck[i].rarity;
+                cardFront.transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "Part: " + cardDeck[i].bodyPart;
+                cardFront.transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "<i>\"" + cardDeck[i].tagLine + "\"</i>";
+                if (cardDeck[i].health > 0) { cardFront.transform.GetChild(5).transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = "+" + cardDeck[i].health.ToString(); }
+                else { cardFront.transform.GetChild(5).transform.GetChild(3).GetComponent<TextMeshProUGUI>().text = cardDeck[i].health.ToString(); }
+                if (cardDeck[i].attack > 0) { cardFront.transform.GetChild(5).transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = "+" + cardDeck[i].attack.ToString(); }
+                else { cardFront.transform.GetChild(5).transform.GetChild(4).GetComponent<TextMeshProUGUI>().text = cardDeck[i].attack.ToString(); }
+                if (cardDeck[i].speed > 0) { cardFront.transform.GetChild(5).transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = "+" + cardDeck[i].speed.ToString(); }
+                else { cardFront.transform.GetChild(5).transform.GetChild(5).GetComponent<TextMeshProUGUI>().text = cardDeck[i].speed.ToString(); }
+                cardFront.transform.GetChild(6).GetComponent<TextMeshProUGUI>().text = cardDeck[i].gatherAbility;
+                cardFront.transform.GetChild(7).GetComponent<TextMeshProUGUI>().text = cardDeck[i].attackAbility;
+                cardFront.transform.GetChild(8).GetComponent<Image>().sprite = cardDeck[i].img;
+            }
+            anim.SetBool("drawing", true);
+            
             cardDeck.Remove(cardDeck[i]);
             count++;
             while (Input.GetMouseButtonDown(0) == false)
