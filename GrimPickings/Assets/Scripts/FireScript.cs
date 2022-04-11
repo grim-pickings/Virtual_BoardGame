@@ -17,4 +17,9 @@ public class FireScript : MonoBehaviour
     {
         
     }
+
+    public void PlayerFire()
+    {
+        Debug.Log("Player fire");
+    }
 }
