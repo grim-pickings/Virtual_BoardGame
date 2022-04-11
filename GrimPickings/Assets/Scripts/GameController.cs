@@ -15,7 +15,8 @@ public class GameController : MonoBehaviour
     [HideInInspector] public Color movementColor = new Color(1f, 1f, 1f, 0.5f);
 
     public List<GameObject> rangeHexes = new List<GameObject>();
-    public GameObject currentPlayer, player1, player2;
+    public GameObject currentPlayer, player1, player2, rollButton;
+    private bool diceRolled = false;
 
     //Start the game with player 1 rolling to move
     void Start()
@@ -87,7 +88,6 @@ public class GameController : MonoBehaviour
             canvasRotator.transform.localRotation = Quaternion.Euler(0, 0, 90);
             TurnText.text = "Player 2's Turn";
         }
-        dice.GetComponent<DiceScript>().DiceRoll(8, "move");
         float a = 0f;
         while (a < 0.785)
         {
@@ -96,7 +96,15 @@ public class GameController : MonoBehaviour
             TurnText.color = new Color(1f, 1f, 1f, a + 0.215f);
             yield return new WaitForSeconds(0.0025f);
         }
-        yield return new WaitForSeconds(6f);
+        rollButton.SetActive(true);
+        while (diceRolled == false)
+        {
+            yield return null;
+        }
+        rollButton.SetActive(false);
+        dice.GetComponent<DiceScript>().DiceRoll(8, "move");
+        diceRolled = false;
+        yield return new WaitForSeconds(7f);
         while (a > 0)
         {
             a -= 0.004f;
@@ -105,6 +113,11 @@ public class GameController : MonoBehaviour
             yield return new WaitForSeconds(0.0025f);
         }
         TurnText.color = new Color(1f, 1f, 1f, 0f);
+    }
+
+    public void RollDice()
+    {
+        diceRolled = true;
     }
 
     //Coroutine that places all the gravesites one by one at the beginning of the game
