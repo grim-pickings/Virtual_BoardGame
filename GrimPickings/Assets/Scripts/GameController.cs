@@ -17,6 +17,7 @@ public class GameController : MonoBehaviour
     public List<GameObject> rangeHexes = new List<GameObject>();
     public GameObject currentPlayer, player1, player2, rollButton;
     private bool diceRolled = false;
+    public int numMounds, numGraves, numMausoleums;
 
     //Start the game with player 1 rolling to move
     void Start()
@@ -126,7 +127,7 @@ public class GameController : MonoBehaviour
         int i = 0;
         float interval = 0.05f;
         //Number of mounds
-        while(i <= 16)
+        while(i <= numMounds)
         {
             int site = Random.Range(0, gridHolder.transform.childCount);
             if (gridHolder.transform.GetChild(site).GetComponent<HexScript>().nearHexes.Count < 5)
@@ -153,7 +154,7 @@ public class GameController : MonoBehaviour
         }
         i = 0;
         //number of graves
-        while (i <= 12)
+        while (i <= numGraves)
         {
             int site = Random.Range(0, gridHolder.transform.childCount);
             if (gridHolder.transform.GetChild(site).GetComponent<HexScript>().nearHexes.Count < 6)
@@ -180,7 +181,7 @@ public class GameController : MonoBehaviour
         }
         i = 0;
         //number of mausoleums
-        while (i <= 8)
+        while (i <= numMausoleums)
         {
             int site = Random.Range(0, gridHolder.transform.childCount);
             if (gridHolder.transform.GetChild(site).GetComponent<HexScript>().nearHexes.Count < 6)
